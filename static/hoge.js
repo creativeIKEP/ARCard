@@ -1,0 +1,3 @@
+const hoge = () => {
+  alert("hello")
+}
