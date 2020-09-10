@@ -46,7 +46,7 @@
   };
 
   const arToolkitContext = new THREEx.ArToolkitContext({
-    cameraParametersUrl: 'static/camera_para.dat',
+    cameraParametersUrl: 'static/data/camera_para.dat',
     detectionMode: 'color_and_matrix'
   });
 
@@ -57,19 +57,42 @@
   const arMarkerControls = new THREEx.ArMarkerControls(arToolkitContext, camera, {
     size: 1, // size of the marker in meter
     type: 'pattern',
-    patternUrl: 'static/ikep.patt',
+    patternUrl: 'static/data/ikep.patt',
     changeMatrixMode: 'cameraTransformMatrix'
   });
+
 
   //AR contents
   var iconPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial( {
-      map:  new THREE.TextureLoader().load('static/icon.png', renderer)
+      map:  new THREE.TextureLoader().load('static/images/icon.png', renderer)
     })
   );
   iconPlane.rotation.x = -Math.PI/2;
   scene.add(iconPlane);
+
+  var twitterIcon = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.5, 0.5),
+    new THREE.MeshBasicMaterial( {
+      map:  new THREE.TextureLoader().load('static/images/Twitter_Social_Icon_Circle_Color.png', renderer)
+    })
+  );
+  twitterIcon.position.x = -1.6;
+  twitterIcon.position.z = 1.2;
+  twitterIcon.rotation.x = -Math.PI/2;
+  scene.add(twitterIcon);
+
+  var githubIcon = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.5, 0.5),
+    new THREE.MeshBasicMaterial( {
+      map:  new THREE.TextureLoader().load('static/images/GitHub-Mark-120px-plus.png', renderer)
+    })
+  );
+  githubIcon.position.x = -1.6;
+  githubIcon.position.z = 1.8;
+  githubIcon.rotation.x = -Math.PI/2;
+  scene.add(githubIcon);
 
   requestAnimationFrame(function animate(){
     requestAnimationFrame(animate);
