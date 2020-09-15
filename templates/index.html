@@ -61,7 +61,6 @@
     changeMatrixMode: 'cameraTransformMatrix'
   });
 
-
   //AR contents
   var iconPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
@@ -72,6 +71,32 @@
   iconPlane.rotation.x = -Math.PI/2;
   scene.add(iconPlane);
 
+  var webIcon = new THREE.Mesh(
+    new THREE.PlaneGeometry(0.5, 0.5),
+    new THREE.MeshBasicMaterial( {
+      map:  new THREE.TextureLoader().load('static/images/web.png', renderer)
+    })
+  );
+  webIcon.position.x = -1.6;
+  webIcon.position.z = 1.2;
+  webIcon.rotation.x = -Math.PI/2;
+  scene.add(webIcon);
+
+  const font_loader = new THREE.FontLoader();
+  font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
+  	var textGeometry = new THREE.TextGeometry("https://ikep.jp", {
+  		font: font,
+  		size: 0.15,
+  		height: 0,
+  	});
+  	var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+  	var textMesh = new THREE.Mesh(textGeometry, materials);
+    textMesh.position.x = -1.2;
+    textMesh.position.z = 1.25;
+    textMesh.rotation.x = -Math.PI/2;
+  	scene.add(textMesh);
+  });
+
   var twitterIcon = new THREE.Mesh(
     new THREE.PlaneGeometry(0.5, 0.5),
     new THREE.MeshBasicMaterial( {
@@ -79,9 +104,23 @@
     })
   );
   twitterIcon.position.x = -1.6;
-  twitterIcon.position.z = 1.2;
+  twitterIcon.position.z = 1.8;
   twitterIcon.rotation.x = -Math.PI/2;
   scene.add(twitterIcon);
+
+  font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
+    var textGeometry = new THREE.TextGeometry("@CreativeIEKP", {
+      font: font,
+      size: 0.15,
+      height: 0,
+    });
+    var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+    var textMesh = new THREE.Mesh(textGeometry, materials);
+    textMesh.position.x = -1.2;
+    textMesh.position.z = 1.85;
+    textMesh.rotation.x = -Math.PI/2;
+    scene.add(textMesh);
+  });
 
   var githubIcon = new THREE.Mesh(
     new THREE.PlaneGeometry(0.5, 0.5),
@@ -90,9 +129,23 @@
     })
   );
   githubIcon.position.x = -1.6;
-  githubIcon.position.z = 1.8;
+  githubIcon.position.z = 2.4;
   githubIcon.rotation.x = -Math.PI/2;
   scene.add(githubIcon);
+
+  font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
+    var textGeometry = new THREE.TextGeometry("creativeIEKP", {
+      font: font,
+      size: 0.15,
+      height: 0,
+    });
+    var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+    var textMesh = new THREE.Mesh(textGeometry, materials);
+    textMesh.position.x = -1.2;
+    textMesh.position.z = 2.45;
+    textMesh.rotation.x = -Math.PI/2;
+    scene.add(textMesh);
+  });
 
   requestAnimationFrame(function animate(){
     requestAnimationFrame(animate);
