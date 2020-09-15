@@ -62,10 +62,13 @@
   });
 
   //AR contents
+  var mixers = [];
+  var clipActions = [];
+
   var iconPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial( {
-      map:  new THREE.TextureLoader().load('static/images/icon.png', renderer)
+      map: new THREE.TextureLoader().load('static/images/icon.png', renderer),
     })
   );
   iconPlane.rotation.x = -Math.PI/2;
@@ -82,6 +85,14 @@
   webIcon.position.z = 1.2;
   webIcon.rotation.x = -Math.PI/2;
   web.add(webIcon);
+
+  const webIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.2], [ -1.6, 0, 0, -1.6, 0, 1.2 ] );
+  const webIconClip = new THREE.AnimationClip( 'Action', 0.2, [webIconPKF] );
+  const webIconMixer = new THREE.AnimationMixer( webIcon );
+  mixers.push(webIconMixer);
+  const webIconClipAction = webIconMixer.clipAction( webIconClip );
+  webIconClipAction.setLoop(THREE.LoopOnce);
+  clipActions.push(webIconClipAction);
 
   const font_loader = new THREE.FontLoader();
   font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
@@ -111,6 +122,14 @@
   twitterIcon.rotation.x = -Math.PI/2;
   twitter.add(twitterIcon);
 
+  const twitterIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.4], [ -1.6, 0, 0, -1.6, 0, 1.8 ] );
+  const twitterIconClip = new THREE.AnimationClip( 'Action', 0.4, [twitterIconPKF] );
+  const twitterIconMixer = new THREE.AnimationMixer( twitterIcon );
+  mixers.push(twitterIconMixer);
+  const twitterIconClipAction = twitterIconMixer.clipAction( twitterIconClip );
+  twitterIconClipAction.setLoop(THREE.LoopOnce);
+  clipActions.push(twitterIconClipAction);
+
   font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
     var textGeometry = new THREE.TextGeometry("@CreativeIEKP", {
       font: font,
@@ -137,6 +156,14 @@
   githubIcon.position.z = 2.4;
   githubIcon.rotation.x = -Math.PI/2;
   github.add(githubIcon);
+
+  const githubIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.5], [ -1.6, 0, 0, -1.6, 0, 2.4 ] );
+  const githubIconClip = new THREE.AnimationClip( 'Action', 0.5, [githubIconPKF] );
+  const githubIconMixer = new THREE.AnimationMixer( githubIcon );
+  mixers.push(githubIconMixer);
+  const githubIconClipAction = githubIconMixer.clipAction( githubIconClip );
+  githubIconClipAction.setLoop(THREE.LoopOnce);
+  clipActions.push(githubIconClipAction);
 
   font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
     var textGeometry = new THREE.TextGeometry("creativeIEKP", {
@@ -171,6 +198,7 @@
     }
   });
 
+  const clock = new THREE.Clock();
   requestAnimationFrame(function animate(){
     requestAnimationFrame(animate);
     if (!arToolkitSource.ready) {
@@ -178,6 +206,16 @@
     }
     arToolkitContext.update(arToolkitSource.domElement);
     scene.visible = camera.visible;
+
+    const delta = clock.getDelta();
+    mixers.forEach(mixer => mixer.update( delta ));
+    if(camera.visible){
+      clipActions.forEach(clipAction => clipAction.play());
+    }
+    else{
+      clipActions.forEach(clipAction => clipAction.reset());
+    }
+
     renderer.render(scene, camera);
   });
   </script>
