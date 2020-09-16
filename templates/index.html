@@ -82,12 +82,13 @@
     })
   );
   webIcon.position.x = -1.6;
+  webIcon.position.y = -0.2;
   webIcon.position.z = 1.2;
   webIcon.rotation.x = -Math.PI/2;
   web.add(webIcon);
 
-  const webIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.2], [ -1.6, 0, 0, -1.6, 0, 1.2 ] );
-  const webIconClip = new THREE.AnimationClip( 'Action', 0.2, [webIconPKF] );
+  const webIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.1, 0.2, 0.3], [ -1.6, -0.2, 0, -1.6, -0.2, 0.2, -1.6, -0.2, 0.6, -1.6, -0.2, 1.2 ] );
+  const webIconClip = new THREE.AnimationClip( 'Action', 1, [webIconPKF] );
   const webIconMixer = new THREE.AnimationMixer( webIcon );
   mixers.push(webIconMixer);
   const webIconClipAction = webIconMixer.clipAction( webIconClip );
@@ -118,12 +119,13 @@
     })
   );
   twitterIcon.position.x = -1.6;
+  twitterIcon.position.y = -0.1;
   twitterIcon.position.z = 1.8;
   twitterIcon.rotation.x = -Math.PI/2;
   twitter.add(twitterIcon);
 
-  const twitterIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.4], [ -1.6, 0, 0, -1.6, 0, 1.8 ] );
-  const twitterIconClip = new THREE.AnimationClip( 'Action', 0.4, [twitterIconPKF] );
+  const twitterIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.3, 0.4, 0.5, 0.6], [ -1.6, -0.1, 0, -1.6, -0.1, 0.3, -1.6, -0.1, 0.9, -1.6, -0.1, 1.8 ] );
+  const twitterIconClip = new THREE.AnimationClip( 'Action', 1, [twitterIconPKF] );
   const twitterIconMixer = new THREE.AnimationMixer( twitterIcon );
   mixers.push(twitterIconMixer);
   const twitterIconClipAction = twitterIconMixer.clipAction( twitterIconClip );
@@ -157,8 +159,8 @@
   githubIcon.rotation.x = -Math.PI/2;
   github.add(githubIcon);
 
-  const githubIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.5], [ -1.6, 0, 0, -1.6, 0, 2.4 ] );
-  const githubIconClip = new THREE.AnimationClip( 'Action', 0.5, [githubIconPKF] );
+  const githubIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.6, 0.7, 0.8, 0.9], [ -1.6, 0, 0, -1.6, 0, 0.4, -1.6, 0, 1.2, -1.6, 0, 2.4 ] );
+  const githubIconClip = new THREE.AnimationClip( 'Action', 1, [githubIconPKF] );
   const githubIconMixer = new THREE.AnimationMixer( githubIcon );
   mixers.push(githubIconMixer);
   const githubIconClipAction = githubIconMixer.clipAction( githubIconClip );
