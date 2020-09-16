@@ -83,6 +83,24 @@
   arcardPlane.rotation.x = -Math.PI/2;
   scene.add(arcardPlane);
 
+  var accountStencil = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(2, 1.8),
+    new THREE.MeshBasicMaterial({
+      colorWrite: false,
+      depthWrite: false,
+      stencilWrite: true,
+      stencilRef: 2,
+      stencilFail: THREE.ReplaceStencilOp,
+      stencilZFail: THREE.ReplaceStencilOp,
+      stencilZPass: THREE.ReplaceStencilOp,
+    })
+  );
+  accountStencil.position.x = -0.37;
+  accountStencil.position.y = 0;
+  accountStencil.position.z = 1.8;
+  accountStencil.rotation.x = -Math.PI/2;
+  scene.add(accountStencil);
+
   var iconPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial( {
@@ -98,8 +116,8 @@
     new THREE.MeshBasicMaterial( {
       map:  new THREE.TextureLoader().load('static/images/web.png', renderer),
       stencilWrite: true,
-      stencilFunc: THREE.EqualStencilFunc,
-      StencilRef: 0
+      stencilFunc: THREE.NotEqualStencilFunc,
+      stencilRef: 1
     })
   );
   webIcon.position.x = -1.6;
@@ -123,12 +141,26 @@
   		size: 0.15,
   		height: 0,
   	});
-  	var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+  	var materials = new THREE.MeshBasicMaterial( {
+      color: 0x000000,
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      stencilRef: 2
+    } );
   	var textMesh = new THREE.Mesh(textGeometry, materials);
-    textMesh.position.x = -1.2;
+    textMesh.position.x = -1.3;
     textMesh.position.z = 1.25;
     textMesh.rotation.x = -Math.PI/2;
+    textMesh.renderOrder = 1;
   	web.add(textMesh);
+
+    const kf = new THREE.VectorKeyframeTrack( '.position', [ 1, 1.3], [ -3.6, 0, 1.25, -1.3, 0, 1.25 ] );
+    const clip = new THREE.AnimationClip( 'Action', 1.3, [kf] );
+    const mixer = new THREE.AnimationMixer( textMesh );
+    mixers.push(mixer);
+    const clipAction = mixer.clipAction( clip );
+    clipAction.setLoop(THREE.LoopOnce);
+    clipActions.push(clipAction);
   });
   scene.add(web);
 
@@ -138,12 +170,12 @@
     new THREE.MeshBasicMaterial( {
       map:  new THREE.TextureLoader().load('static/images/Twitter_Social_Icon_Circle_Color.png', renderer),
       stencilWrite: true,
-      stencilFunc: THREE.EqualStencilFunc,
-      StencilRef: 0
+      stencilFunc: THREE.NotEqualStencilFunc,
+      stencilRef: 1
     })
   );
   twitterIcon.position.x = -1.6;
-  twitterIcon.position.y = 0.1;
+  twitterIcon.position.y = 0.001;
   twitterIcon.position.z = 1.8;
   twitterIcon.rotation.x = -Math.PI/2;
   twitterIcon.renderOrder = 1;
@@ -158,17 +190,31 @@
   clipActions.push(twitterIconClipAction);
 
   font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
-    var textGeometry = new THREE.TextGeometry("@CreativeIEKP", {
+    var textGeometry = new THREE.TextGeometry("@CreativeIKEP", {
       font: font,
       size: 0.15,
       height: 0,
     });
-    var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+    var materials = new THREE.MeshBasicMaterial( {
+      color: 0x000000,
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      stencilRef: 2
+    } );
     var textMesh = new THREE.Mesh(textGeometry, materials);
-    textMesh.position.x = -1.2;
+    textMesh.position.x = -1.3;
     textMesh.position.z = 1.85;
     textMesh.rotation.x = -Math.PI/2;
+    textMesh.renderOrder = 1;
     twitter.add(textMesh);
+
+    const kf = new THREE.VectorKeyframeTrack( '.position', [ 1, 1.3], [ -3.6, 0, 1.85, -1.3, 0, 1.85 ] );
+    const clip = new THREE.AnimationClip( 'Action', 1.3, [kf] );
+    const mixer = new THREE.AnimationMixer( textMesh );
+    mixers.push(mixer);
+    const clipAction = mixer.clipAction( clip );
+    clipAction.setLoop(THREE.LoopOnce);
+    clipActions.push(clipAction);
   });
   scene.add(twitter);
 
@@ -178,12 +224,12 @@
     new THREE.MeshBasicMaterial( {
       map:  new THREE.TextureLoader().load('static/images/GitHub-Mark-120px-plus.png', renderer),
       stencilWrite: true,
-      stencilFunc: THREE.EqualStencilFunc,
-      StencilRef: 0
+      stencilFunc: THREE.NotEqualStencilFunc,
+      stencilRef: 1
     })
   );
   githubIcon.position.x = -1.6;
-  githubIcon.position.y = 0.2;
+  githubIcon.position.y = 0.0011;
   githubIcon.position.z = 2.4;
   githubIcon.rotation.x = -Math.PI/2;
   githubIcon.renderOrder = 1;
@@ -198,17 +244,31 @@
   clipActions.push(githubIconClipAction);
 
   font_loader.load('static/data/helvetiker_regular.typeface.json', function(font){
-    var textGeometry = new THREE.TextGeometry("creativeIEKP", {
+    var textGeometry = new THREE.TextGeometry("creativeIKEP", {
       font: font,
       size: 0.15,
       height: 0,
     });
-    var materials = new THREE.MeshBasicMaterial( { color: 0x000000} );
+    var materials = new THREE.MeshBasicMaterial( {
+      color: 0x000000,
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      stencilRef: 2
+    } );
     var textMesh = new THREE.Mesh(textGeometry, materials);
-    textMesh.position.x = -1.2;
+    textMesh.position.x = -1.3;
     textMesh.position.z = 2.45;
     textMesh.rotation.x = -Math.PI/2;
+    textMesh.renderOrder = 1;
     github.add(textMesh);
+
+    const kf = new THREE.VectorKeyframeTrack( '.position', [ 1, 1.3], [ -3.6, 0, 2.45, -1.3, 0, 2.45 ] );
+    const clip = new THREE.AnimationClip( 'Action', 1.3, [kf] );
+    const mixer = new THREE.AnimationMixer( textMesh );
+    mixers.push(mixer);
+    const clipAction = mixer.clipAction( clip );
+    clipAction.setLoop(THREE.LoopOnce);
+    clipActions.push(clipAction);
   });
   scene.add(github);
 
