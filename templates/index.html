@@ -65,6 +65,24 @@
   var mixers = [];
   var clipActions = [];
 
+  var arcardPlane = new THREE.Mesh(
+    new THREE.PlaneBufferGeometry(2.6, 1.5),
+    new THREE.MeshBasicMaterial({
+      colorWrite: false,
+      depthWrite: false,
+      stencilWrite: true,
+      stencilRef: 1,
+      stencilFail: THREE.ReplaceStencilOp,
+      stencilZFail: THREE.ReplaceStencilOp,
+      stencilZPass: THREE.ReplaceStencilOp,
+    })
+  );
+  arcardPlane.position.x = -0.67;
+  arcardPlane.position.y = 0;
+  arcardPlane.position.z = 0;
+  arcardPlane.rotation.x = -Math.PI/2;
+  scene.add(arcardPlane);
+
   var iconPlane = new THREE.Mesh(
     new THREE.PlaneGeometry(1, 1),
     new THREE.MeshBasicMaterial( {
@@ -78,16 +96,19 @@
   var webIcon = new THREE.Mesh(
     new THREE.PlaneGeometry(0.5, 0.5),
     new THREE.MeshBasicMaterial( {
-      map:  new THREE.TextureLoader().load('static/images/web.png', renderer)
+      map:  new THREE.TextureLoader().load('static/images/web.png', renderer),
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      StencilRef: 0
     })
   );
   webIcon.position.x = -1.6;
-  webIcon.position.y = -0.2;
   webIcon.position.z = 1.2;
   webIcon.rotation.x = -Math.PI/2;
+  webIcon.renderOrder = 1;
   web.add(webIcon);
 
-  const webIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.1, 0.2, 0.3], [ -1.6, -0.2, 0, -1.6, -0.2, 0.2, -1.6, -0.2, 0.6, -1.6, -0.2, 1.2 ] );
+  const webIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0, 0.1, 0.2, 0.3], [ -1.6, 0, 0, -1.6, 0, 0.2, -1.6, 0, 0.6, -1.6, 0, 1.2 ] );
   const webIconClip = new THREE.AnimationClip( 'Action', 1, [webIconPKF] );
   const webIconMixer = new THREE.AnimationMixer( webIcon );
   mixers.push(webIconMixer);
@@ -115,16 +136,20 @@
   var twitterIcon = new THREE.Mesh(
     new THREE.PlaneGeometry(0.5, 0.5),
     new THREE.MeshBasicMaterial( {
-      map:  new THREE.TextureLoader().load('static/images/Twitter_Social_Icon_Circle_Color.png', renderer)
+      map:  new THREE.TextureLoader().load('static/images/Twitter_Social_Icon_Circle_Color.png', renderer),
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      StencilRef: 0
     })
   );
   twitterIcon.position.x = -1.6;
-  twitterIcon.position.y = -0.1;
+  twitterIcon.position.y = 0.1;
   twitterIcon.position.z = 1.8;
   twitterIcon.rotation.x = -Math.PI/2;
+  twitterIcon.renderOrder = 1;
   twitter.add(twitterIcon);
 
-  const twitterIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.3, 0.4, 0.5, 0.6], [ -1.6, -0.1, 0, -1.6, -0.1, 0.3, -1.6, -0.1, 0.9, -1.6, -0.1, 1.8 ] );
+  const twitterIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.3, 0.4, 0.5, 0.6], [ -1.6, 0.1, 0, -1.6, 0.1, 0.3, -1.6, 0.1, 0.9, -1.6, 0.1, 1.8 ] );
   const twitterIconClip = new THREE.AnimationClip( 'Action', 1, [twitterIconPKF] );
   const twitterIconMixer = new THREE.AnimationMixer( twitterIcon );
   mixers.push(twitterIconMixer);
@@ -151,15 +176,20 @@
   var githubIcon = new THREE.Mesh(
     new THREE.PlaneGeometry(0.5, 0.5),
     new THREE.MeshBasicMaterial( {
-      map:  new THREE.TextureLoader().load('static/images/GitHub-Mark-120px-plus.png', renderer)
+      map:  new THREE.TextureLoader().load('static/images/GitHub-Mark-120px-plus.png', renderer),
+      stencilWrite: true,
+      stencilFunc: THREE.EqualStencilFunc,
+      StencilRef: 0
     })
   );
   githubIcon.position.x = -1.6;
+  githubIcon.position.y = 0.2;
   githubIcon.position.z = 2.4;
   githubIcon.rotation.x = -Math.PI/2;
+  githubIcon.renderOrder = 1;
   github.add(githubIcon);
 
-  const githubIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.6, 0.7, 0.8, 0.9], [ -1.6, 0, 0, -1.6, 0, 0.4, -1.6, 0, 1.2, -1.6, 0, 2.4 ] );
+  const githubIconPKF = new THREE.VectorKeyframeTrack( '.position', [ 0.6, 0.7, 0.8, 0.9], [ -1.6, 0.2, 0, -1.6, 0.2, 0.4, -1.6, 0.2, 1.2, -1.6, 0.2, 2.4 ] );
   const githubIconClip = new THREE.AnimationClip( 'Action', 1, [githubIconPKF] );
   const githubIconMixer = new THREE.AnimationMixer( githubIcon );
   mixers.push(githubIconMixer);
